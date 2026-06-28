@@ -45,10 +45,101 @@
 
 ### Ключевые изменения в коде:
 
-#### 1. Модель `Language::Member`
+#### 1. Модель `Language::Member` (расчёт прогресса)
 ```ruby
 def progress_percentage
   total_lessons = language.lessons.count
   return 0 if total_lessons.zero?
   (finished_lessons_count.to_f / total_lessons * 100).round
 end
+```
+
+#### 2. React-компонент `ProgressSection` (отображение)
+```tsx
+const ProgressSection = ({ member, totalLessons }) => {
+  const completed = member?.finished_lessons_count || 0;
+  const progress = totalLessons > 0 ? (completed / totalLessons) * 100 : 0;
+  
+  return (
+    <div className="progress-container">
+      <div className="progress-bar">
+        <div className="progress-fill" style={{ width: `${progress}%` }}>
+          {Math.round(progress)}%
+        </div>
+      </div>
+      <p>Пройдено {completed} из {totalLessons} уроков</p>
+    </div>
+  );
+};
+```
+
+#### 3. TypeScript-типы
+```typescript
+export interface LanguageMember {
+  id: number;
+  user_id: number;
+  language_id: number;
+  finished_lessons_count: number;
+  state: "started" | "finished";
+  lesson_members?: LanguageLessonMember[];
+}
+```
+
+---
+
+## 🚀 Как запустить локально
+
+```bash
+# 1. Клонируйте репозиторий
+git clone https://github.com/Liftjoper/progress.git
+cd progress
+
+# 2. Установите зависимости
+bundle install
+yarn install
+
+# 3. Настройте базу данных
+rails db:create
+rails db:migrate
+rails db:seed
+
+# 4. Запустите сервер
+rails server
+```
+
+Откройте в браузере: `http://localhost:3000`
+
+---
+
+## 🌐 Деплой
+
+Работающий сайт: **[https://code-basics.com/ru](https://code-basics.com/ru)**
+
+---
+
+## 📊 Результаты внедрения
+
+| До внедрения | После внедрения |
+| :--- | :--- |
+| ❌ Пользователь не видел свой прогресс | ✅ Пользователь видит точное количество пройденных уроков |
+| ❌ Не было мотивации завершать курсы | ✅ Визуальный прогресс-бар показывает процент завершения |
+| ❌ Непонятно, сколько осталось пройти | ✅ Сообщение о завершении курса при 100% прогрессе |
+
+---
+
+## 🔗 Полезные ссылки
+
+| Ресурс | Ссылка |
+| :--- | :--- |
+| **Оригинальный проект** | [hexlet-basics/hexlet-basics](https://github.com/hexlet-basics/hexlet-basics) |
+| **Репозиторий** | [Liftjoper/progress](https://github.com/Liftjoper/progress) |
+| **Сайт** | [Code Basics](https://code-basics.com/ru) |
+
+---
+
+## 👨‍💻 Автор
+
+**Стародубцев Александр Сергеевич**  
+Группа: 01-24 ИСИП.ОД.11  
+Колледж: АНПОО «Хекслет колледж»  
+Практика: ПМ.02 «Осуществление интеграции программных модулей»
