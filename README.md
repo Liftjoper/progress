@@ -1,7 +1,7 @@
 Скачать эти 3 файла и перекинуть их по путям в папке hexlet-basics скачать ее тут (https://github.com/hexlet-basics/hexlet-basics#)
-app/javascript/pages/web/languages/show.tsx
-app/javascript/types/language.ts
-app/models/language/member.rb (по этим путям)
+- app/javascript/pages/web/languages/show.tsx
+- app/javascript/types/language.ts
+- app/models/language/member.rb (по этим путям)
 Индикатор прогресса для Code Basics
 Описание
 Добавление визуального индикатора прогресса на страницу курса в проекте Code Basics.
